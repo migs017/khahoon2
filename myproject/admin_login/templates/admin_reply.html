@@ -1,0 +1,92 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Inquiry{% endblock %}
+
+{% block sidebar %}
+<!--sidebar-->
+<div class="sidebar" id="sidebar_nav" style="background-color:#FFFFFE;padding-left:1.5%;padding-right:1.5%;width:20%;">
+    <div class="header-box py-2"> <!--logo-->
+        <img src="{% static 'images/logo.png'%}" class="card-img-top" alt="...">
+    </div>
+        <ul class="nav nav-pills pt-4">
+            <li class="nav-item">
+                <a class="nav-link" id="user-profile" href="/Dashboard"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Dashboard ></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="user-profile" href="/Add_client"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Add Client Account ></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="user-profile" href="/Inquiry"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Client Inquiry <</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="user-profile" href="/Inventory"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Inventory ></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="user-profile" href="/POS"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >POS/Sales Report ></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="user-profile" href="#"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Forecast ></span></a>
+            </li>
+            <!--dropdown-->
+            <li class="nav-item">
+                <!-- <div class="position-absolute bottom-0 start-0 pb-4" style="padding-left:1%;width:8%;">  -->
+                <a class="nav-link" href="#"><i class="fa fa-sign-out fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline">Logout</span></a>
+                <!-- </div> -->
+            </li>
+        </ul>
+</div>
+<!--sidebar-->
+{% endblock %}
+{% block content %}
+<div class="container-fluid" style="background-color:#D9D9D9;">
+    <div class="row mx-auto mt-5" style="width:70%">
+        <div class="row justify-content-md-center" style="margin-top: 5%;">
+            {% for msg in message_details %}
+            <div class="row mt-2 pb-4" style="background-color: white;">
+                <div class="col-sm-12 py-3 mb-3" style="background-color: #83CFBC;"></div>
+                <div class="col-sm-6">
+                    From:
+                    <b>{{msg.sender.username}}</b><br>
+                    {{msg.receiver.email}}
+                </div>
+                <div class="col-sm-6">
+                    {{msg.date}}
+                </div>
+                <div class="col w-50 mt-3">
+                    <textarea type="textarea" rows="4" style="width:100%" disabled>{{msg.message}}</textarea>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row mt-2 pb-4" style="background-color: white;">
+                <div class="col-sm-12 py-3 mb-3" style="background-color: #83CFBC;"></div>
+                <div class="col-sm-6">
+                    <b>Admin123</b><br>
+                    admin123@gmail.com
+                </div>
+                <div class="col-sm-6">
+                    To:
+                    {% for msg in message_details %}
+                    {% if forloop.first %}
+                    {{msg.sender.username}}
+                    {% endif %}
+                    {% endfor %}
+                    <!-- Client -->
+                </div>
+                <form method="POST" actionpage="/">
+                    {% csrf_token %}
+                    <div class="col w-50 mt-3">
+                        <textarea type="textarea" name="mes" rows="4" style="width:100%" required>
+
+                        </textarea>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn px-5" style="background-color: #e7642e;color:white;">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

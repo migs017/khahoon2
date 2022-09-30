@@ -1,0 +1,13 @@
+<html>
+<head>
+  <title>Title of the document</title>
+</head>
+
+<body>
+  {% for ud in user_details %}
+  <p class="mb2">Email: {{ ud.username }}</p>
+  <p class="mb2">Password: {{ ud.password }}</p>
+  {% endfor %}
+</body>
+
+</html>

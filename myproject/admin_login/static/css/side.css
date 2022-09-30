@@ -1,0 +1,28 @@
+#sidebar_nav{
+    min-height:100vh;
+}
+.sidebar a{
+    color:black;
+}
+.nav-item{
+    color:black;
+    width:100%;
+}
+.nav-item:hover, .nav-link:hover{
+    background-color: #83CFBC;
+    color: #000 !important;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #83CFBC;
+    color:rgb(0, 0, 0);
+    
+    font-weight:  bold;
+}
+.border {
+    color: #000;
+    border-radius: 0.5em;
+}
+
+.border-radius-lg {
+    color: rgb(0, 0, 0);
+}
