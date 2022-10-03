@@ -18,6 +18,18 @@
         th::after {
             content: none !important;
         }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        
     </style>
     {% endblock %}
         {% block sidebar %}
@@ -56,12 +68,27 @@
         <!--sidebar-->
         {% endblock %}
         {% block content %}
+                
         <!--content-->
         <div class="container-fluid" style="background-color:#D9D9D9;">
+            {% if messages %}
+                    {% for message in messages %}
+                    <div class="row justify-content-md-center mt-3">
+                      <div class="col-md-auto">
+                        <!-- {% if message == "Successfully created" %}
+                          <span style="font-weight:bold;text-align:center;font-style:italic;color:green">{{ message }}</span>
+                        else:
+                        {%else%} -->
+                          <span style="font-weight:bold;text-align:center;font-style:italic;color:green">{{ message }}</span>
+                        <!-- {%endif%} -->
+                      </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
             <div class="row mx-auto mt-5" style="width:95%">
                 <div class="row justify-content-md-center" style="margin-top: 5%;">
                     <div class="col-md-auto rounded border w-100 p-5"style="background-color:white">
-                        <form method="post" actionpage="/">
+                        
                         <table class="table table-responsive text-center" id="myTable">
                             <thead>
                                 <tr style="background-color: #83CFBC;">
@@ -72,28 +99,42 @@
                                     <th class="text-center" scope="col">Total</th>
                                     <th class="text-center" scope="col">Update Quantity</th>
                                     <th class="text-center" scope="col">Update Price</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="border shadow">
                                 {% for id in item_details %}
-                                <tr class="text-center">
-                                    <td scope="row">{{id.productName}}</td>
-                                    <td class="pt-2">{{id.id}}</td>
-                                    <td class="pt-2">{{id.quantity}}</td>
-                                    <td class="pt-2">₱ {{id.price}}</td>
-                                    <td class="pt-2">₱ {{id.item_total}}</td>
-                                    <td class="pt-2"><input type="number" class='w-50' placeholder="0"></td>
-                                    <td class="pt-2"><input type="number" class='w-50'  placeholder="0"></td>
-                                </tr>
-                                {%endfor%}
+                                
+                                    
+                                        
+                                        
+                                        <tr class="text-center">
+                                            <form method='POST' actionpage="/">
+                                                {% csrf_token %}
+                                            <input type="hidden" name="productID" value="{{id.id}}">
+                                            <td scope="row">{{id.productName}}</td>
+                                            <td class="pt-2">{{id.id}}</td>
+                                            <td class="pt-2">{{id.quantity}}</td>
+                                            <td class="pt-2">₱{{id.price}}</td>
+                                            <td class="pt-2">₱{{id.item_total}}</td>
+
+                                            <td class="pt-2"><input type="number" required class='w-50' placeholder="{{id.quantity}}" name="u_quantity"></td>
+                                            <td class="pt-2"><input type="number" requried class='w-50'  placeholder="{{id.price}}" name="u_price"></td>
+                                            <td><button type="submit" class="btn btn-primary" style="padding: 0.1em !important;">Update</button></td>
+                                            </form>
+                                        </tr>
+                                    
+
+                                {% endfor %}
+
                             </tbody>
                         </table>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col" style="padding-left:2%">
                                 <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
-                        </div>
-                        </form>
+                        </div> -->
+                        
                     </div>
                 </div>
             </div>

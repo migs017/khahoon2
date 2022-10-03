@@ -7,7 +7,8 @@ from django.contrib.auth.models import auth,User
 from django.contrib import messages
 from django.template import loader
 from .forms import addClient
-from .models import inventory,message
+from .forms import updateInventory
+from .models import inventory,message,transaction
 from itertools import chain
 from django.db.models.expressions import RawSQL
 # Create your views here.
@@ -89,8 +90,8 @@ def inquiryView(request,num=2):
 
 def pos(request):
     template = loader.get_template('admin_pos.html')
-    inventory_obj = inventory.objects.all()
-    context = {"item_details":inventory_obj}
+    transaction_obj = transaction.objects.all()
+    context = {"transaction_details":transaction_obj}
     return HttpResponse(template.render(context,request))
 
 
@@ -98,7 +99,29 @@ def inventory_view(request):
     template = loader.get_template('admin_inventory.html')
     inventory_obj = inventory.objects.all()
     context = {"item_details":inventory_obj}
-    return HttpResponse(template.render(context,request))
+    
+
+    if request.method == "POST":
+        
+        print ('yow') #pangtest
+        data = request.POST
+        quantity = data.get("u_quantity")
+        price = data.get("u_price")
+        pid = data.get("productID")
+        print(quantity, price, pid)
+        messages.success(request, "Successfully updated")
+        
+        inventory.objects.filter(id=pid).update(quantity = quantity, price = price)
+        
+
+
+        # user = User.objects.create_user(email=email,username=username,password=password,is_staff=True)
+        return HttpResponse(template.render(context,request))
+
+    else:
+        return HttpResponse(template.render(context,request))
+
+    
 
     # inventory_obj = inventory.objects.all()
     # return HttpResponse(inventory_obj)

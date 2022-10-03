@@ -35,7 +35,7 @@ class inventory(models.Model):
         db_table = 'inventory'
 
     def __str__(self):
-        return self.Name
+        return self.productName
     def item_total(self):
         return self.quantity*self.price
 
@@ -60,3 +60,18 @@ class message(models.Model):
         me = User.objects.filter(self.sender)
         return self.me
         
+
+class transaction(models.Model):
+    # id = models.IntegerField()
+    receipt_id = models.IntegerField()
+    customer = models.CharField(max_length=30)
+    staff = models.CharField(max_length=30)
+    date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'transaction'
+
+    def receipt(self):
+        return self.receipt_id
+    def __str__(self):
+        return self.customer

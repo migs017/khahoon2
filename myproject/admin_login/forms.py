@@ -39,3 +39,8 @@ class addClient(forms.Form):
             # temp = User.objects.get(email=data)
         except User.DoesNotExist:
             temp = None
+
+class updateInventory(forms.Form):
+    quantity = forms.EmailField(label='', max_length=100,widget=forms.TextInput(attrs={'name':'u_quantity','placeholder':'ex. 10','class':'w-50','id':'qname'}))
+    username = forms.CharField(label='', max_length=100,widget=forms.TextInput(attrs={'name':'u_price','placeholder':'ex. 20','class':'w-50','id':'pname'}))
+    
