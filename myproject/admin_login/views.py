@@ -6,11 +6,12 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import auth,User
 from django.contrib import messages
 from django.template import loader
+from django.contrib.auth import logout as django_logout
 from .forms import addClient
 from .forms import updateInventory
 from .models import inventory,message,transaction
 from itertools import chain
-from django.db.models.expressions import RawSQL
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 #eto yung controller ng system
 #yung (request) is default base sa understanding ko
@@ -21,10 +22,11 @@ def index(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = auth.authenticate(username = username, password =password  )
+        user = auth.authenticate(username = username, password =password, is_staff = False  )
 
         if user is not None:
             auth.login(request , user)
+            request.session['username'] = username = request.POST['username']
             return redirect('dashboard')    
         else:
             messages.error(request, 'invalid username or password')
@@ -35,6 +37,7 @@ def dashboard(request):
     template = loader.get_template('admin_dashboard.html')
     return HttpResponse(template.render())
 
+@login_required(redirect_field_name='/Inquiry')
 def add_client(request):
     if request.method == "POST":
         form = addClient(request.POST)
@@ -56,7 +59,9 @@ def add_client(request):
 
 def inquiry(request):
     template = loader.get_template('admin_inquiry.html')
-    message_obj = message.objects.all()
+    # message_obj = message.objects.all()
+    # message_obj = message.objects.values('sender','subject','message','date','receiver','thread').distinct('thread')
+    message_obj = message.objects.distinct('thread')
     context = {"message_details":message_obj}
     return HttpResponse(template.render(context,request))
     
@@ -70,21 +75,22 @@ def inquiry(request):
 def inquiryView(request,num=2):
     # working add message na lang
     template = loader.get_template('admin_reply.html')
-    messages = message.objects.filter(id=num)
-    context = {"message_details":messages}
+    msg = message.objects.filter(thread=num)
+    sender = User.objects.filter(username=request.session['username'])
+    # context = {"message_details":messages}
     # # return HttpResponse(template.render(context,request))
     if request.method == "POST":
-        messages = message.objects.filter(id=1)
+        msg = message.objects.filter(id=1)
         data = request.POST
         info = data.get("mes")
-        for md in messages:
-            temp = message(sender_id='1',subject=md.subject,message=info,receiver_id=md.sender_id,thread=md.thread)
+        for md in msg:
+            temp = message(sender_id=request.session['_auth_user_id'],subject=md.subject,message=info,receiver_id=md.sender_id,thread=md.thread)
             temp.save()
         messages.success(request, "Sent")
         return redirect('inquiry')
         # return HttpResponse(messages)
     else:
-        return HttpResponse(template.render(context,request))
+        return HttpResponse(template.render({"message_details":msg,"sender_details":sender},request))
     # return HttpResponse(messages)
     # return HttpResponse('ey')
 
@@ -128,6 +134,10 @@ def forecast(request):
     # inventory_obj = inventory.objects.all()
     # return HttpResponse(inventory_obj)
     
+def logout(request):
+    django_logout(request)
+    return HttpResponseRedirect('/')
+
 def register(request):
     if request.method == 'POST':
         # email = request.POST['email']

@@ -13,5 +13,6 @@ urlpatterns = [
     path('Inventory', views.inventory_view, name='inventory'),
     path('Forecast', views.forecast, name='forecast'),
     path('POS', views.pos, name='pos'),
+    path('Logout', views.logout, name='logout'),
     # path('sign',views.sign,),
 ]

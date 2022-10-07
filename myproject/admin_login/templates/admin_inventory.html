@@ -34,36 +34,36 @@
     {% endblock %}
         {% block sidebar %}
        <!--sidebar-->
-        <div class="sidebar" id="sidebar_nav" style="background-color:#FFFFFE;padding-left:1.5%;padding-right:1.5%;width:20%;">
+       <div class="sidebar" id="sidebar_nav" style="background-color:#FFFFFE;padding-left:1.5%;padding-right:1.5%;width:20%;">
             <div class="header-box py-2"> <!--logo-->
-                <img src="{% static 'images/logo.png'%}" class="card-img-top" alt="...">
+            <img src="{% static 'images/logo.png'%}" class="card-img-top" alt="...">
             </div>
-                <ul class="nav nav-pills pt-4">
-                    <li class="nav-item">
-                        <a class="nav-link" id="user-profile" href="/Dashboard"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Dashboard ></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="user-profile" href="/Add_client"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Add Client Account ></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="user-profile" href="/Inquiry"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Client Inquiry ></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" id="user-profile" href="/Inventory"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Inventory <</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="user-profile" href="/POS"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >POS/Sales Report ></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="user-profile" href="#"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Forecast ></span></a>
-                    </li>
-                    <!--dropdown-->
-                    <li class="nav-item">
-                        <!-- <div class="position-absolute bottom-0 start-0 pb-4" style="padding-left:1%;width:8%;">  -->
-                        <a class="nav-link" id="user-profile" href="/Forecast"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Forecast ></span></a>
-                        <!-- </div> -->
-                    </li>
-                </ul>
+            <ul class="nav nav-pills pt-4">
+              <li class="nav-item">
+                <a class="nav-link" id="user-profile" href="/Dashboard"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Dashboard ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/Add_client"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Add User Account < </span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/Inquiry"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Client Inquiry ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active" id="user-profile" href="/Inventory"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Inventory ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/POS"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >POS/Sales Report ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/Forecast"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Forecast ></span></a>
+              </li>
+              <!--dropdown-->
+              <li class="nav-item">
+                  <!-- <div class="position-absolute bottom-0 start-0 pb-4" style="padding-left:1%;width:8%;">  -->
+                  <a class="nav-link" href="/Logout"><i class="fa fa-sign-out fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline">Logout</span></a>
+                  <!-- </div> -->
+              </li>
+            </ul>
         </div>
         <!--sidebar-->
         {% endblock %}
