@@ -121,7 +121,9 @@ def inventory_view(request):
     else:
         return HttpResponse(template.render(context,request))
 
-    
+def forecast(request):
+    template = loader.get_template('admin_forecast.html')
+    return HttpResponse(template.render())
 
     # inventory_obj = inventory.objects.all()
     # return HttpResponse(inventory_obj)

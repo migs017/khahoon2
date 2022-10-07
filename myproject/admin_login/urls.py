@@ -11,6 +11,7 @@ urlpatterns = [
     path('Inquiry', views.inquiry, name='inquiry'),
     path('inquiryView/<int:num>', views.inquiryView, name='inquiryView'),
     path('Inventory', views.inventory_view, name='inventory'),
+    path('Forecast', views.forecast, name='forecast'),
     path('POS', views.pos, name='pos'),
     # path('sign',views.sign,),
 ]
