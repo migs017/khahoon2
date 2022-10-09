@@ -22,14 +22,14 @@ def index(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = auth.authenticate(username = username, password =password, is_staff = False  )
+        user = auth.authenticate(username = username, password =password)
 
         if user is not None:
             auth.login(request , user)
             request.session['username'] = username = request.POST['username']
             return redirect('dashboard')    
         else:
-            messages.error(request, 'invalid username or password')
+            messages.error(request, 'Invalid username or password')
             return redirect("index")
     else:
         return render(request,'login.html')
@@ -37,7 +37,7 @@ def dashboard(request):
     template = loader.get_template('admin_dashboard.html')
     return HttpResponse(template.render())
 
-@login_required(redirect_field_name='/Inquiry')
+@login_required
 def add_client(request):
     if request.method == "POST":
         form = addClient(request.POST)
@@ -57,6 +57,7 @@ def add_client(request):
         form = addClient()
     return render(request,'add_client.html',{'form':form})  
 
+@login_required
 def inquiry(request):
     template = loader.get_template('admin_inquiry.html')
     # message_obj = message.objects.all()
@@ -71,7 +72,7 @@ def inquiry(request):
     # message_obj = message.objects.all()
     # return HttpResponse(message_obj)
     # return HttpResponse('ey')
-
+@login_required
 def inquiryView(request,num=2):
     # working add message na lang
     template = loader.get_template('admin_reply.html')
@@ -93,14 +94,14 @@ def inquiryView(request,num=2):
         return HttpResponse(template.render({"message_details":msg,"sender_details":sender},request))
     # return HttpResponse(messages)
     # return HttpResponse('ey')
-
+@login_required
 def pos(request):
     template = loader.get_template('admin_pos.html')
     transaction_obj = transaction.objects.all()
     context = {"transaction_details":transaction_obj}
     return HttpResponse(template.render(context,request))
 
-
+@login_required
 def inventory_view(request):
     template = loader.get_template('admin_inventory.html')
     inventory_obj = inventory.objects.all()
@@ -126,14 +127,14 @@ def inventory_view(request):
 
     else:
         return HttpResponse(template.render(context,request))
-
+@login_required
 def forecast(request):
     template = loader.get_template('admin_forecast.html')
     return HttpResponse(template.render())
 
     # inventory_obj = inventory.objects.all()
     # return HttpResponse(inventory_obj)
-    
+@login_required
 def logout(request):
     django_logout(request)
     return HttpResponseRedirect('/')
