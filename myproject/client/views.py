@@ -6,3 +6,4 @@ from django.http import HttpResponse
 def client_dashboard(request):
     template = loader.get_template('client_dashboard.html')
     return HttpResponse(template.render())
+
