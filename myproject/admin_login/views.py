@@ -13,6 +13,7 @@ from .forms import updateInventory
 from .models import inventory,message,transaction
 from itertools import chain
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 # Create your views here.
 #eto yung controller ng system
 #yung (request) is default base sa understanding ko
@@ -28,14 +29,13 @@ def index(request):
         if user is not None:
             auth.login(request , user)
                 
-            if request.user.is_staff and request.user.is_authenticated:
+            if request.user.is_staff is True and request.user.is_authenticated:
                 request.session['username'] = username = request.POST['username']
                 return redirect('dashboard')
-                
+            elif request.user.is_staff is False and request.user.is_authenticated:
+                return redirect(reverse('client-dashboard'))
             else:
                 messages.error(request, 'User is not a staff')
-                return redirect("index")
-                
         else:
             messages.error(request, 'Invalid username or password')
             return redirect("index")
