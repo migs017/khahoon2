@@ -38,6 +38,7 @@
     <!--sidebar-->
     <!--content-->
     {% block content %}
+    {%if user.is_authenticated and user.is_staff%}
     <div class="container-fluid" style="background-color:#D9D9D9;">
         <!-- <h2 class="pt-4 mb-2" style="padding-left: 2%;"> Add Client Account </h2> -->
         <div class="row mx-auto mt-5" style="width:95%">
@@ -65,7 +66,7 @@
                     </div>
                     {% endfor %}
                   {% endif %}
-                  <form method="post" actionpage="/">
+                  <form method="POST" actionpage="/">
                     {% csrf_token %}
                     {% for field in form %}
                             <span style="font-weight:bold;text-align:center;font-style:italic;color:red;">{{ field.errors }}</span>
@@ -99,5 +100,8 @@
               </div>
         </div>
     </div>
+    {% else %}
+    {% include 'admin_login/templates/admin_base.html' %}
+    {% endif%}
     {% endblock %}
     <!--content-->

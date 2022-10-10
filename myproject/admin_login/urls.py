@@ -1,5 +1,4 @@
 from django.urls import path,include
-
 from . import views
 #dito yung mga urls ng website
 urlpatterns = [
@@ -11,8 +10,7 @@ urlpatterns = [
     path('Inquiry', views.inquiry, name='inquiry'),
     path('inquiryView/<int:num>', views.inquiryView, name='inquiryView'),
     path('Inventory', views.inventory_view, name='inventory'),
-    path('Forecast', views.forecast, name='forecast'),
     path('POS', views.pos, name='pos'),
-    path('Logout', views.logout, name='logout'),
+    path('forecast', views.forecast, name='forecast'),
     # path('sign',views.sign,),
 ]

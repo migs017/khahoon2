@@ -68,7 +68,7 @@
         <!--sidebar-->
         {% endblock %}
         {% block content %}
-                
+        {%if user.is_authenticated and user.is_staff%}        
         <!--content-->
         <div class="container-fluid" style="background-color:#D9D9D9;">
             {% if messages %}
@@ -139,6 +139,7 @@
                 </div>
             </div>
         </div>
+        {%endif%}
         {% endblock %}
         <!--content-->
         {% block datatable %} 

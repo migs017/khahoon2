@@ -1,6 +1,7 @@
 import re
+from urllib import request
 from django.dispatch import receiver
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import auth,User
@@ -26,23 +27,32 @@ def index(request):
 
         if user is not None:
             auth.login(request , user)
-            request.session['username'] = username = request.POST['username']
-            return redirect('dashboard')    
+                
+            if request.user.is_staff and request.user.is_authenticated:
+                request.session['username'] = username = request.POST['username']
+                return redirect('dashboard')
+                
+            else:
+                return HttpResponseForbidden("User is not Staff")
+                
         else:
             messages.error(request, 'Invalid username or password')
             return redirect("index")
     else:
         return render(request,'login.html')
+    
+    
+@login_required
 def dashboard(request):
     template = loader.get_template('admin_dashboard.html')
     return HttpResponse(template.render())
 
-@login_required
+#@login_required
 def add_client(request):
     if request.method == "POST":
         form = addClient(request.POST)
         if form.is_valid():
-            print ('yow') #pangtest
+            
             email = form.cleaned_data['email']
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
