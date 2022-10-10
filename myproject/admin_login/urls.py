@@ -3,6 +3,7 @@ from . import views
 #dito yung mga urls ng website
 urlpatterns = [
     path('', views.index, name='index',),#path(name sa website,name sa views,di ko pa alam)
+    path('Login', views.index, name='index',),
     path('Logout', views.logout, name='logout'),
     path('Dashboard', views.dashboard, name='dashboard'),
     path('register', views.register, name='register'),

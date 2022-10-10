@@ -148,7 +148,8 @@ def forecast(request):
 #@login_required
 def logout(request):
     django_logout(request)
-    return redirect("Logout")
+    template = loader.get_template('logout.html')
+    return HttpResponse(template.render())
 
 def register(request):
     if request.method == 'POST':
