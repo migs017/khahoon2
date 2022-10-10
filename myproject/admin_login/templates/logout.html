@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+<head>
+  <title>Kha-hoon</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+// function myFunction() {
+//   $("#logo").fadeOut(2000);
+//   setTimeout(function(){
+//         $('#login').fadeIn('slow');
+//     },2000);
+// }
+
+</script>
+</head>
+<body style="background-color:#EFBD40;" onload="myFunction()">
+  <div class="container">
+    {% load static %}
+    <div class="row justify-content-md-center" style="margin-top: 20%;">
+    <!-- <div class="col-md-auto"> 
+      <img src="{% static 'images/logo.png' %}" style="width:400px;height: 400px;"id="logo">
+    </div> -->
+    <!-- <div class="col-md-auto rounded border w-25 p-5"style="background-color:white;display: none;" id="login" > -->
+      <div class="col-md-auto rounded border w-25 p-5"style="background-color:white;display: block;" id="login" >
+      <div class="row">
+        <div class="col-sm-6 text-center pt-4">
+          <span style="font-size:25px;color:#83cfbc;font-weight:bold">YOU HAVE LOGGED OUT</span>
+        </div>
+        <div class="col-sm-6">
+          <img src="{% static 'images/logo.png'%}" style="width:100px;height:80px">
+        </div>
+      </div>
+      <form action="/login.html">
+          <!-- {% for field in form %}
+          <div class="form-group mt-4">
+              {{ field }}
+          </div>
+          {% endfor %} -->
+          <div class="col-sm-auto mt-4">
+            <button type="submit" class="btn px-5" style="background-color: #e7642e;color:white;">LOGIN</button>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  </div>
+</body>
+</html>

@@ -33,7 +33,8 @@ def index(request):
                 return redirect('dashboard')
                 
             else:
-                return HttpResponseForbidden("User is not Staff")
+                messages.error(request, 'User is not a staff')
+                return redirect("index")
                 
         else:
             messages.error(request, 'Invalid username or password')
@@ -47,7 +48,7 @@ def dashboard(request):
     template = loader.get_template('admin_dashboard.html')
     return HttpResponse(template.render())
 
-#@login_required
+@login_required
 def add_client(request):
     if request.method == "POST":
         form = addClient(request.POST)
@@ -144,10 +145,10 @@ def forecast(request):
 
     # inventory_obj = inventory.objects.all()
     # return HttpResponse(inventory_obj)
-@login_required
+#@login_required
 def logout(request):
     django_logout(request)
-    return HttpResponseRedirect('/')
+    return redirect("Logout")
 
 def register(request):
     if request.method == 'POST':
