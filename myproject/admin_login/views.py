@@ -120,6 +120,7 @@ def pos(request):
 
         return HttpResponse(template.render(context,request))
 
+#View_transaction
 def view_transaction(request, tid):
     template = loader.get_template('admin_view_transactions.html')
     products_obj = transaction_products.objects.all()
