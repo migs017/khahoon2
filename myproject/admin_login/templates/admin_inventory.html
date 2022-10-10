@@ -71,28 +71,28 @@
                 
         <!--content-->
         <div class="container-fluid" style="background-color:#D9D9D9;">
-            {% if messages %}
-                    {% for message in messages %}
-                    <div class="row justify-content-md-center mt-3">
-                      <div class="col-md-auto">
-                        <!-- {% if message == "Successfully created" %}
-                          <span style="font-weight:bold;text-align:center;font-style:italic;color:green">{{ message }}</span>
-                        else:
-                        {%else%} -->
-                          <span style="font-weight:bold;text-align:center;font-style:italic;color:green">{{ message }}</span>
-                        <!-- {%endif%} -->
-                      </div>
-                    </div>
-                    {% endfor %}
-                {% endif %}
+           
             <div class="row mx-auto mt-5" style="width:95%">
                 <div class="row justify-content-md-center" style="margin-top: 5%;">
                     <div class="col-md-auto rounded border w-100 p-5"style="background-color:white">
-                        
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="row justify-content-md-center mt-3">
+                          <div class="col-md-auto">
+                            <!-- {% if message == "Successfully created" %}
+                              <span style="font-weight:bold;text-align:center;font-style:italic;color:green">{{ message }}</span>
+                            else:
+                            {%else%} -->
+                              <span style="font-weight:bold;text-align:center;font-style:italic;color:green">{{ message }}</span>
+                            <!-- {%endif%} -->
+                          </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                         <table class="table table-responsive text-center" id="myTable">
                             <thead>
                                 <tr style="background-color: #83CFBC;">
-                                    <th class="text-center" scope="col">Product Name</th>
+                                    <th class="text-center" scope="col">Product</th>
                                     <th class="text-center" scope="col">Code</th>
                                     <th class="text-center" scope="col">Quantity</th>
                                     <th class="text-center" scope="col">Price</th>
@@ -118,8 +118,8 @@
                                             <td class="pt-2">₱{{id.price}}</td>
                                             <td class="pt-2">₱{{id.item_total}}</td>
 
-                                            <td class="pt-2"><input type="number" required class='w-50' placeholder="{{id.quantity}}" name="u_quantity"></td>
-                                            <td class="pt-2"><input type="number" requried class='w-50'  placeholder="{{id.price}}" name="u_price"></td>
+                                            <td class="pt-2"><input type="number" required class='w-50' value="{{id.quantity}}" name="u_quantity"></td>
+                                            <td class="pt-2"><input type="number" requried class='w-50'  value="{{id.price}}" name="u_price"></td>
                                             <td><button type="submit" class="btn btn-primary" style="padding: 0.1em !important;">Update</button></td>
                                             </form>
                                         </tr>

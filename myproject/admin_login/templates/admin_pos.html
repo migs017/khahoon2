@@ -60,91 +60,7 @@
         {% block content %}
         
             <div class="container-fluid" style="background-color:#D9D9D9;">
-                <!-- Modal -->
-    <div id="id01" class="w3-modal" style="display: none;">
-        <div class="w3-modal-content" style="width: 50% !important; margin-top: -5em; margin-bottom: 1em;">
-            <div class="w3-container" style="padding: 1em 1em 1em 1em;">
-                <a href="/POS"><span class="w3-button w3-display-topright">&times;</span></a>
-            <div style="margin-top: 1em !important; align-items: center; text-align: justify; padding: 1em;"> 
-                <div class="border border">
-                    <h3 class="text-center pt-3">Edit User</h3>
-                    <form class="row justify-content-around" >
-                        
-                        <input type="hidden" name="uid" value="">
-                        <div class="col-sm-10">
-                            <div class="row my-3 pb-2 border shadow">
-                                <div class="col-sm-12">
-                                    <label for="" class="col-form-label">Full name</label>
-                                </div>
-                                <div class="col-sm-12 ">
-                                    <input type="text" name="fullname" value="" class="form-control" aria-describedby="passwordHelpInline" required>
-                                </div>
-                            </div>
-                            <div class="row my-3 pb-2 border shadow">
-                                <div class="col-sm-12">
-                                    <label for="" class="col-form-label">Email</label>
-                                </div>
-                                <div class="col-sm-12 ">
-                                    <input type="text" name="email" value="" class="form-control" aria-describedby="passwordHelpInline" required>
-                                </div>
-                            </div>
-                            <div class="row my-3 pb-2 border shadow">
-                                <div class="col-sm-12">
-                                    <label for="" class="col-form-label">Username</label>
-                                </div>
-                                <div class="col-sm-12 ">
-                                    <input type="text" name="username" value=""  class="form-control" aria-describedby="passwordHelpInline" required>
-                                </div>
-                                <div class="col-auto" style="padding-top: 1%;">
-                                    <span>Must be 8-20 characters long.</span>
-                                </div>
-                            </div>
-                            <div class="row my-3 pb-2 border shadow">
-                                <div class="col-sm-12">
-                                    <label for="" class="col-form-label">Description</label>
-                                </div>
-                                <div class="col-sm-12 ">
-                                    <input type="text" name="description" value="" class="form-control" aria-describedby="passwordHelpInline">
-                                </div>
-                            </div>
-                            <div class="row pb-2 mb-2 border shadow">
-                                <div class="col-sm-12">
-                                    <label for="inputPassword6"  class="col-form-label">New password</label>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input type="password" onChange="verifyPassword()" name="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                                </div>
-                                <div class="col-auto" style="padding-top: 1%;">
-                                    <span>Must be 8-20 characters long and should contain atleast 1 letter, special character and number.</span>
-                                </div>
-                            </div>
-
-                            <div class="row pb-2 mb-2 border shadow">
-                                <div class="col-sm-12">
-                                    <label for="inputPassword6"  class="col-form-label">Confirm New password</label>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input type="password" onChange="onChange()" name="confirm" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                                </div>
-                                
-                            </div>
-
-                            <div class="row justify-content-md-center py-2 my-3" style="margin-bottom: -0.4em !important;">
-                                <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
-
-   
-    <!-- Modal -->
+                
                 <div class="row mx-auto mt-5" style="width:95%">
                     <div class="row justify-content-md-center" style="margin-top: 5%;">
                         <div class="col-md-auto rounded border w-100 p-5"style="background-color:white">
@@ -152,20 +68,27 @@
                                 <thead>
                                     <tr style="background-color: #83CFBC;">
                                         <th class="text-center" scope="col">Receipt No.</th>
-                                        <th class="text-center" scope="col">Customer Name</th>
-                                        <th class="text-center" scope="col">Staff Name</th>
                                         <th class="text-center" scope="col">Date</th>
-                                        <th class="text-center" scope="col">Transaction</th>
+                                        <th class="text-center" scope="col">Customer</th>
+                                        <th class="text-center" scope="col">Contact No.</th>
+                                        <th class="text-center" scope="col">Staff</th>
+                                        <th class="text-center" scope="col"></th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody class="border shadow">
                                     {% for id in transaction_details %}
                                     <tr class="text-center">
-                                    <td scope="row">{{id.receipt_id}}</td>
-                                    <td class="pt-2">{{id.customer}}</td>
-                                    <td class="pt-2">{{id.staff}}</td>
+                                    <td scope="row">{{id.id}}</td>
                                     <td class="pt-2">{{id.date}}</td>
-                                    <td class="pt-2"><button onclick="document.getElementById('id01').style.display='block'">View Transactions</button></td>
+                                    <td class="pt-2">{{id.customer}}</td>
+                                    <td class="pt-2">{{id.contact_number}}</td>
+                                    <td class="pt-2">{{id.staff}}</td>
+                                    <form method='POST' actionpage="/admin_view_transactions">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="transaction_id" value="{{id.id}}">
+                                    <td class="pt-2"><button type="submit">View</button></td>
+                                    </form>
                                     </tr>
                                     {%endfor%}
                                 </tbody>
