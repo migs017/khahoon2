@@ -64,8 +64,8 @@ class message(models.Model):
 
 class transaction(models.Model):
     # id = models.IntegerField()
-    receipt_id = models.IntegerField()
     customer = models.CharField(max_length=30)
+    contact_number = models.BigIntegerField(null = True)
     staff = models.CharField(max_length=30)
     date = models.DateField(auto_now_add=True)
 
@@ -76,3 +76,18 @@ class transaction(models.Model):
         return self.receipt_id
     def __str__(self):
         return self.customer
+
+class transaction_products(models.Model):
+
+    transaction = models.ForeignKey(transaction,null=True,on_delete=models.CASCADE)
+    product_id = models.IntegerField()
+    product_name = models.CharField(max_length=30)
+    quantity = models.IntegerField()
+    price = models.IntegerField()
+    total_sales = models.IntegerField()
+    t_date = models.DateField(null=True)
+
+    class Meta:
+        db_table = 'transaction_products'
+
+

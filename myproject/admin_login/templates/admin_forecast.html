@@ -38,14 +38,14 @@
     <!--sidebar-->
 {% endblock %}
 {% block content %}
-{%if user.is_authenticated and user.is_staff%}
 <div class="container-fluid" style="background-color:#D9D9D9;">
     <div class="row mx-auto mt-5" style="width:95%;background: white;padding-bottom:5%;">
         <div class="row justify-content-md-center" style="margin-top: 5%;">
             <div class="col-sm-5 border">qwe</div>
-            <div class="col-sm-5 border">qwe</div>
+            <div class="col-sm-5 border">
+            {{qty}}
+            </div>
         </div>
     </div>
 </div>
-{%endif%}
 {% endblock %}

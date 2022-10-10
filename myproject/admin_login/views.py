@@ -10,7 +10,7 @@ from django.template import loader
 from django.contrib.auth import logout as django_logout
 from .forms import addClient
 from .forms import updateInventory
-from .models import inventory,message,transaction
+from .models import inventory,message,transaction, transaction_products
 from itertools import chain
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -105,14 +105,30 @@ def inquiryView(request,num=2):
         return HttpResponse(template.render({"message_details":msg,"sender_details":sender},request))
     # return HttpResponse(messages)
     # return HttpResponse('ey')
-@login_required
+
 def pos(request):
     template = loader.get_template('admin_pos.html')
     transaction_obj = transaction.objects.all()
     context = {"transaction_details":transaction_obj}
+
+    if request.method == "POST":
+        data = request.POST
+        tid = data.get("transaction_id")
+
+        return redirect('Transactions/'+tid, tid=tid)
+    else:
+
+        return HttpResponse(template.render(context,request))
+
+def view_transaction(request, tid):
+    template = loader.get_template('admin_view_transactions.html')
+    products_obj = transaction_products.objects.all()
+    transaction_obj = transaction.objects.all()
+    context = {"prod_details":products_obj, "transaction_details":transaction_obj, 'tid':tid}
+
     return HttpResponse(template.render(context,request))
 
-@login_required
+
 def inventory_view(request):
     template = loader.get_template('admin_inventory.html')
     inventory_obj = inventory.objects.all()
@@ -121,7 +137,6 @@ def inventory_view(request):
 
     if request.method == "POST":
         
-        print ('yow') #pangtest
         data = request.POST
         quantity = data.get("u_quantity")
         price = data.get("u_price")
@@ -145,12 +160,14 @@ def forecast(request):
 
     # inventory_obj = inventory.objects.all()
     # return HttpResponse(inventory_obj)
-#@login_required
-def logout(request):
-    django_logout(request)
-    template = loader.get_template('logout.html')
-    return HttpResponse(template.render())
 
+def forecast_view(request):
+    template = loader.get_template('admin_forecast.html')
+    qty = transaction_products.objects.filter(t_date = '2022-10-09')
+    transaction_obj = transaction.objects.all()
+    context = {"transact":transaction_obj, "qty": qty}
+    return HttpResponse(template.render(context,request))
+    
 def register(request):
     if request.method == 'POST':
         # email = request.POST['email']

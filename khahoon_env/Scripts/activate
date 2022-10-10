@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Migs\khahoon2\khahoon_env"
+VIRTUAL_ENV="C:\Users\Kyle\Downloads\Khahoon\khahoon2\khahoon_env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
