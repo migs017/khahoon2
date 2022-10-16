@@ -49,6 +49,11 @@ def dashboard(request):
     return HttpResponse(template.render())
 
 @login_required
+def scanner(request):
+    template = loader.get_template('admin_scanner.html')
+    return HttpResponse(template.render())
+
+@login_required
 def add_client(request):
     if request.method == "POST":
         form = addClient(request.POST)
@@ -128,6 +133,10 @@ def view_transaction(request, tid):
     context = {"prod_details":products_obj, "transaction_details":transaction_obj, 'tid':tid}
 
     return HttpResponse(template.render(context,request))
+
+def logout(request):
+    template = loader.get_template('logout.html')
+    return HttpResponse(template.render())
 
 
 def inventory_view(request):

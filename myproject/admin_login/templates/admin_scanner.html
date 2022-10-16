@@ -1,0 +1,91 @@
+
+{% extends 'admin_base.html' %}
+{% load static %}
+<html>
+    <head>
+        <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+        {% comment %} https://github.com/mebjas/html5-qrcode {% endcomment %}
+    </head>
+{% block title %}Add Client{% endblock %}
+    <!--sidebar-->
+    {% block sidebar %}
+    
+    <div class="sidebar" id="sidebar_nav" style="background-color:#FFFFFE;padding-left:1.5%;padding-right:1.5%;width:20%;">
+        <div class="header-box py-2"> <!--logo-->
+          <img src="{% static 'images/logo.png'%}" class="card-img-top" alt="...">
+        </div>
+            <ul class="nav nav-pills pt-4">
+              <li class="nav-item">
+                <a class="nav-link" id="user-profile" href="/Dashboard"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Dashboard ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link active" id="user-profile" href="/Add_client"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Add User Account < </span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/Inquiry"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Client Inquiry ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/Inventory"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Inventory ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/POS"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >POS/Sales Report ></span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="user-profile" href="/Forecast"><i class="fa fa-user fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline" >Forecast ></span></a>
+              </li> 
+              <!--dropdown-->
+              <li class="nav-item">
+                  <!-- <div class="position-absolute bottom-0 start-0 pb-4" style="padding-left:1%;width:8%;">  -->
+                  <a class="nav-link" href="/Logout"><i class="fa fa-sign-out fa-fw" aria-hidden="true" style="width:25%;text-align:left;"></i><span class="ms-1 d-none d-sm-inline">Logout</span></a>
+                  <!-- <asdadasdsadsasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasa-->
+              </li>
+            </ul>
+      </div>
+    {% endblock %}
+
+    {% block content %}
+    
+
+    <div class="container-fluid" style="background-color:#D9D9D9;">
+        <!-- <h2 class="pt-4 mb-2" style="padding-left: 2%;"> Add Client Account </h2> -->
+        <div class="row mx-auto mt-5" style="width:95%">
+            <div class="row justify-content-md-center" style="margin-top: 5%;">
+                <div class="col-md-auto rounded border w-25 p-5"style="background-color:white;display: block;" id="login" >
+                  <div class="row">
+                    <div class="col-sm-6 text-center pt-4">
+                      <span style="font-size:25px;color:#83cfbc;font-weight:bold">Scanner</span>
+                    </div>
+                    <div class="col-sm-6">
+                      <img src="{% static 'images/logo.png'%}" style="width:100px;height:80px">
+                    </div>
+                    <div id="qr-reader" style="width: 600px"></div>
+                  </div>
+                        <button class="btn px-5" style="background-color: #e7642e;color:white;">Confirm</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    {% endblock %}
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // handle the scanned code as you like, for example:
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+          }
+          
+          function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning.
+            // for example:
+            console.warn(`Code scan error = ${error}`);
+          }
+          
+          let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 10, qrbox: {width: 250, height: 250} },
+            /* verbose= */ false);
+          html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+</html>
