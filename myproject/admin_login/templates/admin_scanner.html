@@ -45,47 +45,39 @@
 
     {% block content %}
     
+    <div class="container-fluid" style="background-color:#C8C6C6;">
+      <div class="row mx-auto mt-5" style="width:95%">
+      <div id="reader" width="600px" height="600px"></div>
+      
+        <form id="form_isbn" method="POSt">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+      </div>
+        <script>
+      function onScanSuccess(decodedText, decodedResult) {
+        // handle the scanned code as you like, for example:
+        console.log(`Code matched = ${decodedText}`, decodedResult);
+        document.getElementById('id_isbn').value = decodedText;
+        document.getElementById('form_isbn').submit();
+      }
+      
+      function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+        console.warn(`Code scan error = ${error}`);
+      }
+      
+      let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: {width: 250, height: 250} },
+        /* verbose= */ false);
+      html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        </script>
 
-    <div class="container-fluid" style="background-color:#D9D9D9;">
-        <!-- <h2 class="pt-4 mb-2" style="padding-left: 2%;"> Add Client Account </h2> -->
-        <div class="row mx-auto mt-5" style="width:95%">
-            <div class="row justify-content-md-center" style="margin-top: 5%;">
-                <div class="col-md-auto rounded border w-25 p-5"style="background-color:white;display: block;" id="login" >
-                  <div class="row">
-                    <div class="col-sm-6 text-center pt-4">
-                      <span style="font-size:25px;color:#83cfbc;font-weight:bold">Scanner</span>
-                    </div>
-                    <div class="col-sm-6">
-                      <img src="{% static 'images/logo.png'%}" style="width:100px;height:80px">
-                    </div>
-                    <div id="qr-reader" style="width: 600px"></div>
-                  </div>
-                        <button class="btn px-5" style="background-color: #e7642e;color:white;">Confirm</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-        </div>
-    </div>
 
     {% endblock %}
-    <script>
-        function onScanSuccess(decodedText, decodedResult) {
-            // handle the scanned code as you like, for example:
-            console.log(`Code matched = ${decodedText}`, decodedResult);
-          }
-          
-          function onScanFailure(error) {
-            // handle scan failure, usually better to ignore and keep scanning.
-            // for example:
-            console.warn(`Code scan error = ${error}`);
-          }
-          
-          let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader",
-            { fps: 10, qrbox: {width: 250, height: 250} },
-            /* verbose= */ false);
-          html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-    </script>
+    
 </html>
